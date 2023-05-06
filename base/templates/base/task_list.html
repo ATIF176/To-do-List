@@ -1,0 +1,52 @@
+{% extends 'base/base/base.html' %}
+
+{% load static %}
+{% block site_css %}
+<link rel="stylesheet" href="{% static 'base/styles/task_list.css' %}">
+{% endblock %}
+{% block heading %}
+<div class="head">
+    <h1>Welcome {{ request.user|title }}</h1>
+    {% if request.user.is_authenticated %}
+    <a href="{% url 'logout' %}" style="padding-right: 10px;">Logout</a>
+    {% else %}
+    <a href="{% url 'login' %}">Login</a>
+    {% endif %}
+</div>
+<div>
+    {% block detail %}<p class="lead">You have {{ count }} incomplete task{{ count|pluralize:"s" }}</p>{% endblock %}
+</div>
+{% endblock %}
+{% block content %}
+<form action="" method="GET">
+    <input type="text" name="search-area" value="{{ search_input }}">
+    <input type="submit" value="Search">
+</form>
+<table>
+    <tr>
+        <th>Item</th>
+        <th><a href="{% url 'task-create' %}">+ More</a></th>
+    </tr>
+    {% for task in tasks %}
+    {% if task.complete %}
+    <tr>
+        <td>{{ task.title }} (Comp)</td>
+        <td><a href="{% url 'tasks-detail' task.id %}" class="fun">View</a>
+            <a href="{% url 'task-update' task.id %}" class="fun">Edit</a>
+            <a href="{% url 'task-delete' task.id %}" class="fun">Delete</a>
+        </td>
+    </tr>
+    {% else %}
+    <tr>
+        <td>{{ task.title }} (UnComp)</td>
+        <td><a href="{% url 'tasks-detail' task.id %}" class="fun">View</a>
+            <a href="{% url 'task-update' task.id %}" class="fun">Edit</a>
+            <a href="{% url 'task-delete' task.id %}" class="fun">Delete</a>
+        </td>
+    </tr>
+    {% endif %}
+    {% empty %}
+    <h3>No items in List</h3>
+    {% endfor %}
+</table>
+{% endblock %}

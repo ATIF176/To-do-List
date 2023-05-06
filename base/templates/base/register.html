@@ -1,0 +1,17 @@
+{% extends 'base/base/base.html' %}
+
+{% load static %}
+{% block site_css %}
+<link rel="stylesheet" href="{% static 'base/styles/task_form.css' %}">
+{% endblock %}
+{% block detail %}
+<h1 style="font-style: italic; text-align: center;">Register</h1>{% endblock %}
+{% block content %}
+<form action="" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Register" class="btn">
+    <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+</form>
+
+{% endblock %}

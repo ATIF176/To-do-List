@@ -1,0 +1,18 @@
+{% extends 'base/base/base.html' %}
+
+{% load static %}
+{% block site_css %}
+<link rel="stylesheet" href="{% static 'base/styles/task_form.css' %}">
+{% endblock %}
+{% block heading %}
+<h2 style="text-align: center;">Task Form</h2>
+{% block detail %}<p style="font-style: italic; text-align: center;">This form will be use to create and edit tasks</p>{% endblock %}
+{% endblock %}
+{% block content %}
+<form action="" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="submit" class="btn">
+    <a href="{% url 'tasks' %}" style="float: right;" class="btn">Go Back</a>
+</form>
+{% endblock %}

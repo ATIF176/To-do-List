@@ -1,0 +1,14 @@
+{% extends 'base/base/base.html' %}
+
+{% load static %}
+{% block site_css %}
+<link rel="stylesheet" href="{% static 'base/styles/task_form.css' %}">
+{% endblock %}
+{% block detail %}<p style="font-style: italic;">Are you sure to delete this task? "{{ task }}"</p>{% endblock %}
+{% block content %}
+<form action="" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Delete" class="btn">
+    <a href="{% url 'tasks' %}"  class="btn">Go Back</a>
+</form>
+{% endblock %}
